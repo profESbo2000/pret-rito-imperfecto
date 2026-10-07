@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>
+  (function pedirClave() {
+    // 🔑 Escribe aquí la contraseña para tus alumnos:
+    const CLAVE_CORRECTA = "ELE2026"; 
+
+    // Comprueba si ya ingresó la clave en esta sesión del navegador
+    if (sessionStorage.getItem("acceso_autorizado") !== "true") {
+      let intento = prompt("🔒 ACTIVIDAD PROTEGIDA\nIngresa la contraseña proporcionada por tu profesor:");
+
+      if (intento === CLAVE_CORRECTA) {
+        sessionStorage.setItem("acceso_autorizado", "true");
+      } else {
+        alert("❌ Contraseña incorrecta. Contacta a tu profesor.");
+        document.write(`
+          <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+            <h2>Acceso Restringido 🔒</h2>
+            <p>Esta actividad es exclusiva para estudiantes registrados.</p>
+            <button onclick="location.reload()">Intentar de nuevo</button>
+          </div>
+        `);
+        window.stop(); // Cancela la carga del resto de la página
+      }
+    }
+  })();
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Pretérito Imperfecto de Indicativo | Aprende Español</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --primary-light: #e0e7ff;
+      --secondary: #0284c7;
+      --accent: #f59e0b;
+      --accent-bright: #fbbf24;
+      --success: #10b981;
+      --danger: #ef4444;
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-radius: 20px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 20px 30px -10px rgba(79, 70, 229, 0.18), 0 10px 15px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #06b6d4 100%);
+      color: white;
+      padding: 4rem 1.5rem 4.5rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(49, 46, 129, 0.25);
+      border-bottom: 5px solid var(--accent-bright);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.25);
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: -30px auto 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Navegación Estilizada */
+    nav.sticky-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      padding: 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      border: 2px solid #e2e8f0;
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      padding: 0.75rem 1.3rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.98rem;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Secciones */
+    .content-section {
+      display: none;
+      animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 3px solid var(--primary-light);
+      padding-bottom: 0.8rem;
+    }
+
+    /* Concepto e Ilustraciones */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .concept-grid { grid-template-columns: 1fr; }
+    }
+
+    .image-container {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+      position: relative;
+      background: #0f172a;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .image-container:hover img {
+      transform: scale(1.06);
+    }
+
+    .image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(15, 23, 42, 0.95));
+      color: white;
+      padding: 1.5rem 1rem 0.8rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Tablas Interactivas de Conjugación */
+    .reveal-box {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: transparent;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-block;
+      min-width: 90px;
+      text-align: center;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .reveal-box.revealed {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      transform: scale(1.05);
+    }
+
+    .reveal-box:hover:not(.revealed) {
+      background: linear-gradient(135deg, #334155 0%, #475569 100%);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .verb-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 1.2rem;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .verb-table th, .verb-table td {
+      padding: 1.1rem 1.3rem;
+      text-align: left;
+    }
+
+    .verb-table th {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .verb-table td {
+      border-bottom: 1px solid #f1f5f9;
+      background-color: #ffffff;
+    }
+
+    .verb-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .verb-table tbody tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    .verb-table tbody tr:hover td {
+      background-color: #eea2;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 0.85rem 1.6rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    }
+
+    /* Marcadores Temporales */
+    .marker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 1.2rem;
+    }
+
+    .marker-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid #cbd5e1;
+      font-weight: 700;
+      color: var(--primary-dark);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .marker-card:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.2);
+    }
+
+    .example-display {
+      margin-top: 2rem;
+      padding: 1.6rem;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-left: 6px solid var(--success);
+      border-radius: 14px;
+      display: none;
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.15);
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Usos con Imágenes */
+    .use-card {
+      border: 2px solid #e2e8f0;
+      background: #ffffff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .use-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-light);
+    }
+
+    .use-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .use-card:hover .use-card-img {
+      transform: scale(1.05);
+    }
+
+    .use-card-content {
+      padding: 1.4rem;
+      flex-grow: 1;
+    }
+
+    /* Ejercicios */
+    .exercise-block {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-field {
+      padding: 0.6rem 1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      width: 160px;
+      transition: all 0.25s ease;
+      background: white;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+    }
+
+    .input-field.correct {
+      border-color: var(--success) !important;
+      background: #dcfce7 !important;
+      color: #065f46 !important;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .input-field.wrong {
+      border-color: var(--danger) !important;
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+    }
+
+    .select-field {
+      padding: 0.6rem 1rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: white;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .select-field:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Resumen Cuaderno Estilizado: Exactamente 4 columnas en desktop */
+    .notebook-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    @media (max-width: 992px) {
+      .notebook-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .notebook-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .notebook-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border: 2px solid #e2e8f0;
+      border-left: 6px solid var(--primary);
+      border-radius: 16px;
+      padding: 1.3rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notebook-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.15);
+      border-color: var(--primary-light);
+      border-left-color: var(--accent);
+    }
+
+    .notebook-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .notebook-magic-q {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notebook-example {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: white;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    /* Modal para Zoom In de la Tarjeta */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      border: 3px solid var(--primary-light);
+      border-left: 10px solid var(--primary);
+      transform: scale(0.6);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: #f1f5f9;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--danger);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .modal-card .notebook-badge {
+      font-size: 1.05rem;
+      padding: 0.4rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-card .notebook-magic-q {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-card .notebook-example {
+      font-size: 1.35rem;
+      padding: 1.2rem;
+      line-height: 1.5;
+    }
+
+    textarea.free-text {
+      width: 100%;
+      height: 120px;
+      padding: 1.2rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.25s ease;
+      background: white;
+    }
+
+    textarea.free-text:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><i class="fa-solid fa-film"></i> El Pretérito Imperfecto</h1>
+    <p>Aprende a describir, ambientar y recordar costumbres en el pasado</p>
+  </header>
+
+  <div class="container">
+    <nav class="sticky-nav">
+      <button class="nav-btn active" onclick="switchTab('concepto', event)"><i class="fa-solid fa-camera-retro"></i> Idea Central</button>
+      <button class="nav-btn" onclick="switchTab('conjugacion', event)"><i class="fa-solid fa-table-cells"></i> Conjugación</button>
+      <button class="nav-btn" onclick="switchTab('marcadores', event)"><i class="fa-solid fa-clock"></i> Marcadores</button>
+      <button class="nav-btn" onclick="switchTab('usos', event)"><i class="fa-solid fa-images"></i> Usos</button>
+      <button class="nav-btn" onclick="switchTab('resumen', event)"><i class="fa-solid fa-book-bookmark"></i> Cuaderno</button>
+      <button class="nav-btn" onclick="switchTab('practica', event)"><i class="fa-solid fa-pen-to-square"></i> Práctica (1-8)</button>
+    </nav>
+
+    <!-- SECTION 1: CONCEPTO -->
+    <section id="concepto" class="content-section active">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-video"></i> La Metáfora de la Cámara de Cine</div>
+        <div class="concept-grid">
+          <div>
+            <p>Imagina que el pasado es una película y el <strong>Pretérito Imperfecto</strong> es una cámara que graba una escena.</p>
+            <p style="margin-top: 10px;"><strong>No muestra cuándo empezó ni cuándo terminó.</strong> Nos pone dentro del pasado para ver cómo era todo: las personas, los lugares, las costumbres y el ambiente.</p>
+            
+            <p style="margin-top: 10px;">Se llama <em>imperfecto</em> porque expresa algo no cerrado, algo que estaba ocurriendo o que se repetía.</p>
+
+            <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 1.4rem; border-radius: 16px; margin-top: 1.4rem; border-left: 6px solid var(--primary); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);">
+              <strong style="color: var(--primary-dark); font-size: 1.15rem;"><i class="fa-solid fa-bullseye"></i> ¿Para qué sirve?</strong>
+              <ul style="margin-left: 1.5rem; margin-top: 0.6rem; color: #1e1b4b; font-weight: 600;">
+                <li>Describir personas, lugares y cosas.</li>
+                <li>Ambientar historias y dar contexto.</li>
+                <li>Recordar hábitos y costumbres pasadas.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="image-container">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80" alt="Cámara de cine vintage grabando una película">
+            <div class="image-caption"><i class="fa-solid fa-circle-dot" style="color: #ef4444;"></i> Grabando una escena en desarrollo...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CONJUGACIÓN -->
+    <section id="conjugacion" class="content-section">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-border-all"></i> 1. Formación: Verbos Regulares</div>
+        <p>Haz clic en los cuadros sombreados para <strong>revelar la terminación</strong> o usa el botón para mostrar todas:</p>
+        
+        <button class="btn-action" style="margin-top: 1rem;" onclick="revealAll('reg-reveal')"><i class="fa-solid fa-eye"></i> Revelar todas las terminaciones</button>
+
+        <table class="verb-table">
+          <thead>
+            <tr>
+              <th>Persona</th>
+              <th>-AR (hablar)</th>
+              <th>-ER (comer)</th>
+              <th>-IR (vivir)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Yo</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">aba</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ía</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ía</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tú</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">abas</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ías</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ías</span></td>
+            </tr>
+            <tr>
+              <td><strong>Él / Ella / Ud.</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">aba</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ía</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ía</span></td>
+            </tr>
+            <tr>
+              <td><strong>Nosotros/as</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">áramos</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">íamos</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">íamos</span></td>
+            </tr>
+            <tr>
+              <td><strong>Vosotros/as</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">abais</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">íais</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">íais</span></td>
+            </tr>
+            <tr>
+              <td><strong>Ellos / Ellas / Uds.</strong></td>
+              <td>habl<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">aban</span></td>
+              <td>com<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ían</span></td>
+              <td>viv<span class="reveal-box reg-reveal" onclick="this.classList.add('revealed')">ían</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Claves para recordar -->
+        <div style="margin-top: 2rem; background: linear-gradient(135deg, #fffbe3 0%, #fef3c7 100%); padding: 1.5rem; border-radius: 16px; border: 2px solid var(--accent-bright); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);">
+          <h4 style="color: #b45309; font-size: 1.2rem;"><i class="fa-solid fa-key"></i> Claves para recordar</h4>
+          <ul style="margin-left: 1.5rem; margin-top: 0.6rem; color: #78350f; line-height: 1.8;">
+            <li><strong>a) Solo dos tipos de terminaciones:</strong> Uno para <em>-AR</em> (-aba...) y otro para <em>-ER/-IR</em> (-ía...). <em>Comer</em> y <em>vivir</em> se conjugan exactamente igual.</li>
+            <li><strong>b) La tilde:</strong> En <em>-AR</em>, solo lleva tilde <strong>nosotros</strong> (<em>cantábamos</em>). En <em>-ER/-IR</em>, <strong>todas</strong> llevan tilde en la <strong>í</strong> (<em>comía, vivías</em>).</li>
+            <li><strong>c) La raíz no cambia:</strong> Los verbos con cambio vocálico en presente recuperan la vocal del infinitivo (<em>dormir &rarr; dormía</em>).</li>
+            <li><strong>d) Haber impersonal:</strong> Es invariable: <strong>Había</strong> un árbol / <strong>Había</strong> muchos árboles. (¡Nunca *"habían"*).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Verbos Irregulares -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-star"></i> Verbos Irregulares: Solo Tres</div>
+        <p>Todos los demás verbos del idioma español son regulares en este tiempo. Haz clic para revelar:</p>
+
+        <button class="btn-action" style="margin-top: 1rem;" onclick="revealAll('irreg-reveal')"><i class="fa-solid fa-eye"></i> Revelar verbos irregulares</button>
+
+        <table class="verb-table">
+          <thead>
+            <tr>
+              <th>Persona</th>
+              <th>SER</th>
+              <th>IR</th>
+              <th>VER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Yo</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">era</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">iba</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veía</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tú</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">eras</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">ibas</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veías</span></td>
+            </tr>
+            <tr>
+              <td><strong>Él / Ella / Ud.</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">era</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">iba</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veía</span></td>
+            </tr>
+            <tr>
+              <td><strong>Nosotros/as</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">éramos</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">íbamos</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veíamos</span></td>
+            </tr>
+            <tr>
+              <td><strong>Vosotros/as</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">erais</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">ibais</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veíais</span></td>
+            </tr>
+            <tr>
+              <td><strong>Ellos / Ellas / Uds.</strong></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">eran</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">iban</span></td>
+              <td><span class="reveal-box irreg-reveal" onclick="this.classList.add('revealed')">veían</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 1.5rem; background: var(--primary-light); padding: 1.3rem; border-radius: 14px; border-left: 5px solid var(--primary);">
+          <strong style="color: var(--primary-dark); font-size: 1.05rem;">Cómo recordarlos:</strong>
+          <ul style="margin-left: 1.3rem; margin-top: 0.5rem; color: #1e1b4b; font-weight: 600;">
+            <li><strong>SER:</strong> Raíz <em>er-</em>. Tilde solo en <em>éramos</em>.</li>
+            <li><strong>IR:</strong> Raíz <em>ib-</em> con terminaciones de -AR. Tilde solo en <em>íbamos</em>.</li>
+            <li><strong>VER:</strong> Conserva <em>ve-</em> con terminaciones de -ER (<em>veía</em>).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: MARCADORES -->
+    <section id="marcadores" class="content-section">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-tags"></i> 2. Marcadores Temporales Interactivos</div>
+        <p>Haz clic en cualquier marcador para ver un ejemplo de uso real e ilustración del concepto:</p>
+
+        <h4 style="margin-top: 1.5rem; color: var(--primary-dark); font-size: 1.2rem;"><i class="fa-solid fa-arrows-rotate"></i> Hábito o Frecuencia (¿Cuántas veces?)</h4>
+        <div class="marker-grid">
+          <div class="marker-card" onclick="showMarkerExample('Normalmente desayunaba a las siete.', 'Hábito', 'Normalmente')">normalmente</div>
+          <div class="marker-card" onclick="showMarkerExample('Los domingos comíamos en casa de mi abuela.', 'Hábito', 'Los domingos')">los domingos</div>
+          <div class="marker-card" onclick="showMarkerExample('Siempre jugaba en el parque después de la escuela.', 'Hábito', 'Siempre')">siempre</div>
+          <div class="marker-card" onclick="showMarkerExample('A menudo visitábamos a nuestros primos en el campo.', 'Hábito', 'A menudo')">a menudo</div>
+          <div class="marker-card" onclick="showMarkerExample('Cada verano íbamos a la playa con toda la familia.', 'Hábito', 'Cada verano')">cada verano</div>
+        </div>
+
+        <h4 style="margin-top: 2.2rem; color: var(--primary-dark); font-size: 1.2rem;"><i class="fa-solid fa-calendar-days"></i> Época del Pasado (¿En qué etapa?)</h4>
+        <div class="marker-grid">
+          <div class="marker-card" onclick="showMarkerExample('De pequeña tenía miedo a la oscuridad.', 'Época', 'De pequeña')">de pequeña / niño</div>
+          <div class="marker-card" onclick="showMarkerExample('En aquellos tiempos la gente escribía cartas a mano.', 'Época', 'En aquellos tiempos')">en aquellos tiempos</div>
+          <div class="marker-card" onclick="showMarkerExample('En esa época no había teléfonos móviles.', 'Época', 'En esa época')">en esa época</div>
+          <div class="marker-card" onclick="showMarkerExample('Antes la vida era mucho más tranquila.', 'Época', 'Antes')">antes</div>
+        </div>
+
+        <h4 style="margin-top: 2.2rem; color: var(--primary-dark); font-size: 1.2rem;"><i class="fa-solid fa-layer-group"></i> Simultaneidad (Dos cosas a la vez)</h4>
+        <div class="marker-grid">
+          <div class="marker-card" onclick="showMarkerExample('Mientras cocinaba, escuchaba la radio.', 'Simultaneidad', 'Mientras')">mientras</div>
+          <div class="marker-card" onclick="showMarkerExample('Estudiaba y a la vez escuchaba música suave.', 'Simultaneidad', 'A la vez')">a la vez / al mismo tiempo</div>
+        </div>
+
+        <div id="exampleDisplay" class="example-display">
+          <h4 id="exampleCategory" style="color: var(--primary-dark); font-size: 1.2rem;">Categoría</h4>
+          <p id="exampleText" style="font-size: 1.25rem; margin-top: 0.4rem; font-weight: 700; color: #065f46;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: USOS -->
+    <section id="usos" class="content-section">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-cubes-stacked"></i> 3. Usos más comunes con Ilustraciones</div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem;">
+          
+          <div class="use-card">
+            <img class="use-card-img" src="https://plus.unsplash.com/premium_photo-1723701867046-ec2a98c61a4b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-paint-brush"></i> 1. Describir personas y lugares</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Dibujar con palabras: aspecto, carácter, tamaño, color.</p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"Mi abuela era muy cariñosa y tenía el pelo blanco."</em></p>
+            </div>
+          </div>
+
+          <div class="use-card">
+            <img class="use-card-img" src="https://images.unsplash.com/photo-1680024436315-fb06267264b2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Niños jugando fútbol en el parque">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-rotate-left"></i> 2. Hábitos y costumbres</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Cosas repetidas. Equivale a <em>"solía + infinitivo"</em>.</p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"De niño, jugaba al fútbol todas las tardes."</em></p>
+            </div>
+          </div>
+
+          <div class="use-card">
+            <img class="use-card-img" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=500&q=80" alt="Persona cocinando en la cocina">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-spinner"></i> 3. Acciones en desarrollo</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Acción mientras ocurría. Equivale a <em>"estaba + gerundio"</em>.</p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"A esa hora cocinaba (= estaba cocinando)."</em></p>
+            </div>
+          </div>
+
+          <div class="use-card">
+            <img class="use-card-img" src="https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=500&q=80" alt="Noche con lluvia en la ventana">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-cloud-showers-heavy"></i> 4. Escenarios y ambientes</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">El decorado de una historia: dónde estamos, qué hora es.</p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"Llovía, el viento soplaba y todos dormían."</em></p>
+            </div>
+          </div>
+
+          <div class="use-card">
+            <img class="use-card-img" src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=500&q=80" alt="Reloj clásico marcando la hora">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-clock"></i> 5. Hora y Edad</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Expresión de tiempo relativo y etapas vividas.</p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"Eran las tres de la tarde. / Mi hermana tenía diez años."</em></p>
+            </div>
+          </div>
+
+          <div class="use-card">
+            <img class="use-card-img" src="https://images.unsplash.com/photo-1713947503867-3b27964f042b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Persona descansando o sintiendo emociones">
+            <div class="use-card-content">
+              <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-face-smile"></i> 6. Estados emocionales</h4>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Cansancio, hambre, miedo: <em>estar, sentirse, querer, tener...</em></p>
+              <p style="margin-top: 0.8rem; font-weight: 700; color: var(--primary);"><em>"Estaba cansado y quería dormir."</em></p>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 2.5rem; color: var(--primary-dark); font-size: 1.3rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Usos Especiales</h4>
+        <div style="margin-top: 1rem; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 1.4rem; border-radius: 16px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);">
+          <ul style="margin-left: 1.3rem; color: #0c4a6e; font-weight: 600; line-height: 1.8;">
+            <li><strong>Cortesía:</strong> Suaviza peticiones: <em>"Quería pedirle un favor." / "¿Qué deseaba?"</em></li>
+            <li><strong>Sorpresa o recuerdo:</strong> Recordar algo olvidado: <em>"¡Ah, tú eras Marta!" / "¿Cómo te llamabas?"</em></li>
+            <li><strong>Imperfecto narrativo:</strong> Efecto literario en la historia: <em>"En 1492, Colón llegaba a América."</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: RESUMEN PARA CUADERNO -->
+    <section id="resumen" class="content-section">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-book-open"></i> 5. Resumen para el cuaderno</div>
+        <p>Una guía rápida de consulta interactiva con la <strong>"Pregunta Mágica"</strong> para cada uso (haz clic en una tarjeta para verla en pantalla completa):</p>
+
+        <div class="notebook-grid">
+          
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Descripción</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Cómo era?</div>
+            <div class="notebook-example">Era alto y tenía barba.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Hábito</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Qué solía hacer?</div>
+            <div class="notebook-example">Los sábados iba al cine.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Acción en curso</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Qué estaba haciendo?</div>
+            <div class="notebook-example">Leía en el jardín.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Escenario</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Cuál era el ambiente?</div>
+            <div class="notebook-example">Llovía y hacía frío.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Hora / Edad</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Qué hora / edad era / tenía?</div>
+            <div class="notebook-example">Eran las seis.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Estados</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Cómo se sentía?</div>
+            <div class="notebook-example">Estaba nervioso.</div>
+          </div>
+
+          <div class="notebook-card" onclick="openNotebookModal(this)">
+            <span class="notebook-badge">Tiempo / Ambiente</span>
+            <div class="notebook-magic-q"><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Cómo estaba el día?</div>
+            <div class="notebook-example">Hacía sol.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: PRÁCTICA -->
+    <section id="practica" class="content-section">
+
+      <!-- Ejercicio 1 -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-pen"></i> Ejercicio 1: Conjuga los verbos</div>
+        <div class="exercise-block">
+          <ol style="margin-left: 1.3rem; font-weight: 600;">
+            <li>Yo (vivir) <input type="text" class="input-field" data-ans="vivía"> en una casa pequeña.</li>
+            <li style="margin-top: 12px;">Tú (ser) <input type="text" class="input-field" data-ans="eras"> muy tímido de niño.</li>
+            <li style="margin-top: 12px;">Nosotros (ir) <input type="text" class="input-field" data-ans="íbamos"> al río los domingos.</li>
+            <li style="margin-top: 12px;">Mis abuelos (levantarse) <input type="text" class="input-field" data-ans="se levantaban"> siempre muy temprano.</li>
+            <li style="margin-top: 12px;">Vosotros (ver) <input type="text" class="input-field" data-ans="veíais"> dibujos animados después del colegio.</li>
+            <li style="margin-top: 12px;">Ella (poder) <input type="text" class="input-field" data-ans="podía"> correr muy rápido.</li>
+            <li style="margin-top: 12px;">Yo (pedir) <input type="text" class="input-field" data-ans="pedía"> siempre helado de chocolate.</li>
+            <li style="margin-top: 12px;">Ustedes (dormir) <input type="text" class="input-field" data-ans="dormían"> la siesta cada tarde.</li>
+          </ol>
+          <button class="btn-action" style="margin-top: 1.5rem;" onclick="checkInputs('practica')"><i class="fa-solid fa-check"></i> Comprobar Ejercicio 1</button>
+        </div>
+      </div>
+
+      <!-- Ejercicio 2 -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Ejercicio 2: Detective de marcadores</div>
+        <p>Indica si el marcador de la frase expresa <strong>Hábito</strong>, <strong>Época</strong> o <strong>Simultaneidad</strong>:</p>
+        <div class="exercise-block" style="margin-top: 1rem;">
+          <ol style="margin-left: 1.3rem; font-weight: 600;">
+            <li><em>De pequeña</em>, me encantaba el chocolate caliente. 
+              <select class="select-field" data-ans="epoca"><option value="">--Selecciona--</option><option value="habito">Hábito</option><option value="epoca">Época</option><option value="simultaneidad">Simultaneidad</option></select>
+            </li>
+            <li style="margin-top: 14px;"><em>Mientras</em> cenábamos, veíamos una serie. 
+              <select class="select-field" data-ans="simultaneidad"><option value="">--Selecciona--</option><option value="habito">Hábito</option><option value="epoca">Época</option><option value="simultaneidad">Simultaneidad</option></select>
+            </li>
+            <li style="margin-top: 14px;"><em>Todos los veranos</em> viajábamos a la costa. 
+              <select class="select-field" data-ans="habito"><option value="">--Selecciona--</option><option value="habito">Hábito</option><option value="epoca">Época</option><option value="simultaneidad">Simultaneidad</option></select>
+            </li>
+            <li style="margin-top: 14px;"><em>En aquellos tiempos</em> no había teléfonos móviles. 
+              <select class="select-field" data-ans="epoca"><option value="">--Selecciona--</option><option value="habito">Hábito</option><option value="epoca">Época</option><option value="simultaneidad">Simultaneidad</option></select>
+            </li>
+            <li style="margin-top: 14px;"><em>Con frecuencia</em> visitaba a sus primos. 
+              <select class="select-field" data-ans="habito"><option value="">--Selecciona--</option><option value="habito">Hábito</option><option value="epoca">Época</option><option value="simultaneidad">Simultaneidad</option></select>
+            </li>
+          </ol>
+          <button class="btn-action" style="margin-top: 1.5rem;" onclick="checkSelects()"><i class="fa-solid fa-check"></i> Comprobar Ejercicio 2</button>
+        </div>
+      </div>
+
+      <!-- Ejercicio 3 -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-house-user"></i> Ejercicio 3: La casa de mi abuela</div>
+        <p>Completa el texto conjugando los verbos entre paréntesis en imperfecto:</p>
+        <div class="exercise-block" style="line-height: 2.4; margin-top: 1rem; font-weight: 500;">
+          Cuando yo (ser) <input type="text" class="input-field" data-ans="era"> niño, (pasar) <input type="text" class="input-field" data-ans="pasaba"> las vacaciones en casa de mi abuela. La casa (estar) <input type="text" class="input-field" data-ans="estaba"> en un pueblo pequeño y (tener) <input type="text" class="input-field" data-ans="tenía"> un patio con muchas flores. Todas las mañanas, mi abuela (preparar) <input type="text" class="input-field" data-ans="preparaba"> pan casero y yo la (ayudar) <input type="text" class="input-field" data-ans="ayudaba">. Por las tardes, mis primos y yo (jugar) <input type="text" class="input-field" data-ans="jugábamos"> en la calle porque no (haber) <input type="text" class="input-field" data-ans="había"> mucho tráfico. (Hacer) <input type="text" class="input-field" data-ans="hacía"> mucho sol y todos (estar) <input type="text" class="input-field" data-ans="estábamos"> felices.
+          <br><br>
+          <button class="btn-action" onclick="checkInputs('practica')"><i class="fa-solid fa-check"></i> Comprobar Ejercicio 3</button>
+        </div>
+      </div>
+
+      <!-- Ejercicio 4 -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-list-check"></i> Ejercicio 4: ¿Qué uso es?</div>
+        <div class="exercise-block">
+          <ol style="margin-left: 1.3rem; font-weight: 600;">
+            <li>Eran las diez de la noche. <select class="select-field" data-ans="hora"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+            <li style="margin-top: 12px;">Quería preguntarle una cosa. <select class="select-field" data-ans="cortesia"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+            <li style="margin-top: 12px;">Mi padre siempre leía el periódico en el desayuno. <select class="select-field" data-ans="habito"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+            <li style="margin-top: 12px;">Estaba muy cansada. <select class="select-field" data-ans="estado"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+            <li style="margin-top: 12px;">Mi profesora era alta y simpática. <select class="select-field" data-ans="descripcion"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+            <li style="margin-top: 12px;">Hacía mucho viento. <select class="select-field" data-ans="tiempo"><option value="">--Uso--</option><option value="hora">Hora/Edad</option><option value="cortesia">Cortesía</option><option value="habito">Hábito</option><option value="estado">Estado</option><option value="descripcion">Descripción</option><option value="tiempo">Tiempo atmosférico</option></select></li>
+          </ol>
+          <button class="btn-action" style="margin-top: 1.5rem;" onclick="checkSelects()"><i class="fa-solid fa-check"></i> Comprobar Ejercicio 4</button>
+        </div>
+      </div>
+
+      <!-- Ejercicio 5 -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-wrench"></i> Ejercicio 5: Corrige el error</div>
+        <p>Escribe la forma corregida del verbo erróneo en cada frase:</p>
+        <div class="exercise-block" style="margin-top: 1rem;">
+          <ol style="margin-left: 1.3rem; font-weight: 600;">
+            <li>Cuando era pequeño, <em>juegaba</em> en el parque &rarr; <input type="text" class="input-field" data-ans="jugaba"></li>
+            <li style="margin-top: 12px;">Nosotros <em>seramos</em> amigos desde la infancia &rarr; <input type="text" class="input-field" data-ans="éramos"></li>
+            <li style="margin-top: 12px;"><em>Habían</em> muchas personas y habían mucho ruido &rarr; <input type="text" class="input-field" data-ans="había"></li>
+            <li style="margin-top: 12px;">Mi abuelo <em>pensiaba</em> que el pueblo era tranquilo &rarr; <input type="text" class="input-field" data-ans="pensaba"></li>
+          </ol>
+          <button class="btn-action" style="margin-top: 1.5rem;" onclick="checkInputs('practica')"><i class="fa-solid fa-check"></i> Comprobar Correcciones</button>
+        </div>
+      </div>
+
+      <!-- Ejercicios 6, 7 y 8: Producción Libre -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-pen-nib"></i> Ejercicios 6, 7 y 8: Producción e Expresión Libre</div>
+        
+        <h4 style="color: var(--primary-dark);"><i class="fa-solid fa-image"></i> Ejercicio 6: Descripción de una foto antigua</h4>
+        <p style="color: var(--text-muted);">Imagina una foto de tu familia de hace 20 años. Descríbela con el imperfecto (mínimo 6 frases):</p>
+        <textarea class="free-text" placeholder="En la foto estábamos mi familia y yo. Hacía sol y..."></textarea>
+
+        <h4 style="margin-top: 2rem; color: var(--primary-dark);"><i class="fa-solid fa-arrows-split-up-and-left"></i> Ejercicio 7: Juego «Antes y ahora»</h4>
+        <p style="color: var(--text-muted);">Completa las oraciones comparando tu vida:</p>
+        <ul style="margin-left: 1.3rem; margin-top: 0.8rem; line-height: 2.2; font-weight: 600;">
+          <li>Antes yo <input type="text" style="width: 220px;" class="input-field">, pero ahora...</li>
+          <li>Cuando era niño/a, mi comida favorita <input type="text" style="width: 220px;" class="input-field">.</li>
+        </ul>
+
+        <h4 style="margin-top: 2rem; color: var(--primary-dark);"><i class="fa-solid fa-child-reaching"></i> Ejercicio 8: Un día normal de tu infancia</h4>
+        <p style="color: var(--text-muted);">Escribe de 6 a 8 líneas sobre tu infancia. Incluye al menos:</p>
+        <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 1rem 1.4rem; border-radius: 12px; margin: 0.8rem 0; color: #1e1b4b; font-weight: 600;">
+          <label style="margin-right: 18px; cursor: pointer;"><input type="checkbox"> Dos marcadores</label>
+          <label style="margin-right: 18px; cursor: pointer;"><input type="checkbox"> Una hora</label>
+          <label style="margin-right: 18px; cursor: pointer;"><input type="checkbox"> Descripción de lugar</label>
+          <label style="cursor: pointer;"><input type="checkbox"> Acción simultánea con <em>mientras</em></label>
+        </div>
+        <textarea class="free-text" placeholder="De pequeño, me levantaba a las siete de la mañana..."></textarea>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Modal Overlay para zoom-in de tarjeta del cuaderno -->
+  <div id="notebookModal" class="modal-overlay" onclick="closeNotebookModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeNotebookModal()"><i class="fa-solid fa-xmark"></i></button>
+      <span id="modalBadge" class="notebook-badge"></span>
+      <div id="modalMagicQ" class="notebook-magic-q"></div>
+      <div id="modalExample" class="notebook-example"></div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId, evt) {
+      document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+      }
+    }
+
+    function revealAll(className) {
+      document.querySelectorAll('.' + className).forEach(el => el.classList.add('revealed'));
+    }
+
+    function showMarkerExample(example, category, este) {
+      const display = document.getElementById('exampleDisplay');
+      document.getElementById('exampleCategory').textContent = category + ' ("' + este + '")';
+      document.getElementById('exampleText').innerHTML = '👉 <em>' + example + '</em>';
+      display.style.display = 'block';
+    }
+
+    function openNotebookModal(cardElement) {
+      const badgeText = cardElement.querySelector('.notebook-badge').innerHTML;
+      const magicQText = cardElement.querySelector('.notebook-magic-q').innerHTML;
+      const exampleText = cardElement.querySelector('.notebook-example').innerHTML;
+
+      document.getElementById('modalBadge').innerHTML = badgeText;
+      document.getElementById('modalMagicQ').innerHTML = magicQText;
+      document.getElementById('modalExample').innerHTML = exampleText;
+
+      document.getElementById('notebookModal').classList.add('active');
+    }
+
+    function closeNotebookModal(event) {
+      document.getElementById('notebookModal').classList.remove('active');
+    }
+
+    function checkInputs(sectionId) {
+      const inputs = document.querySelectorAll('#' + sectionId + ' .input-field');
+      inputs.forEach(input => {
+        const expected = input.getAttribute('data-ans');
+        if(expected) {
+          const val = input.value.trim().toLowerCase();
+          if(val === expected.toLowerCase()) {
+            input.classList.remove('wrong');
+            input.classList.add('correct');
+          } else {
+            input.classList.remove('correct');
+            input.classList.add('wrong');
+          }
+        }
+      });
+    }
+
+    function checkSelects() {
+      const selects = document.querySelectorAll('.content-section.active .select-field');
+      selects.forEach(sel => {
+        const expected = sel.getAttribute('data-ans');
+        if(expected) {
+          if(sel.value === expected) {
+            sel.style.borderColor = 'var(--success)';
+            sel.style.background = '#dcfce7';
+            sel.style.color = '#065f46';
+          } else {
+            sel.style.borderColor = 'var(--danger)';
+            sel.style.background = '#fee2e2';
+            sel.style.color = '#991b1b';
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
